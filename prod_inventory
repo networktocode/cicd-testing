@@ -2,5 +2,6 @@ csr1 ansible_host=10.0.0.51
 csr2 ansible_host=10.0.0.52
 csr3 ansible_host=10.0.0.53
 
+
 [all:vars]
 env=production
