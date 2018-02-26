@@ -1,0 +1,6 @@
+---
+
+- name: "ENSURE THERE ARE 2 NTP SERVERS"
+  assert:
+    that:
+      - "ntp_servers | length == 2"

@@ -1,0 +1,16 @@
+---
+
+ethernet_interfaces:
+  - name: "GigabitEthernet1"
+    description: "MGMT"
+    ip: "{{ ansible_host }}"
+    mask: "255.255.255.0"
+    vrf: "MANAGEMENT"
+  - name: "GigabitEthernet2"
+    description: "INTERCONNECT"
+    ip: "10.255.0.1"
+    mask: "255.255.255.0"
+  - name: "GigabitEthernet3"
+    description: "INTERCONNECT"
+    ip: "10.255.1.1"
+    mask: "255.255.255.0"
