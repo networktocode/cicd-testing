@@ -1,0 +1,10 @@
+{% for interface in ethernet_interfaces %}
+interface {{ interface['name'] }}
+ description {{ interface['description'] }}
+{% if interface.get('vrf') %}
+ vrf forwarding {{ interface.get('vrf') }}
+{% endif %}
+ ip address {{ interface['ip'] }} {{ interface['mask'] }}
+ negotiation auto
+!
+{% endfor %}

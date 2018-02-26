@@ -1,0 +1,18 @@
+---
+
+ansible_ssh_pass: "ntc123"
+ansible_user: "ntc"
+
+credentials:
+  username: "{{ ansible_user }}"
+  password: "{{ ansible_ssh_pass }}"
+  host: "{{ ansible_host }}"
+
+
+syslog_servers:
+  - "10.255.255.1"
+  - "10.255.255.2"
+
+ntp_servers:
+  - "10.255.255.3"
+  - "10.255.255.4"

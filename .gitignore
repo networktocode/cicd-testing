@@ -1,0 +1,12 @@
+*.pyc
+*.retry
+.DS_Store
+production_config/
+diff/
+configs/final/*
+!configs/final/.gitkeep
+configs/partial/*
+!configs/partial/.gitkeep
+configs/current/*
+!configs/current/.gitkeep
+session_id
