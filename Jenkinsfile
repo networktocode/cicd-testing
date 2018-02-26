@@ -13,7 +13,7 @@ pipeline {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               sh 'yamllint -d yamllint.yml .'
-              sh 'ansible-playbook -i prod_inventory data_validation.yml'
+              sh 'ansible-playbook -i prod_inventory offline_data_checks.yml'
               sh 'ansible-playbook -i qa_inventory build_configs.yml'
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
