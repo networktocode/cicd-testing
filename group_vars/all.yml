@@ -16,3 +16,14 @@ syslog_servers:
 ntp_servers:
   - "10.255.255.3"
   - "10.255.255.4"
+
+
+operational_structure_checks:
+  - name: "show_interface"
+    command: "show interface brief"
+  - name: "show_lldp"
+    command: "show lldp neighbors"
+  - name: "show_ospf"
+    command: "show ip ospf neighbor"
+  - name: "show_route"
+    command: "show ip route"

@@ -1,0 +1,29 @@
+---
+
+- name: "OPERATIONAL COMPLIANCE CHECKS"
+  hosts: "routers"
+  connection: "local"
+  gather_facts: "no"
+
+  tasks:
+
+    - name: "RUN COMMANDS AGAINST DEVICE AND PARSE"
+      ntc_show_command:
+        platform: "cisco_ios"
+        command: "{{ item['command'] }}"
+        host: "{{ ansible_host }}"
+        username: "{{ credentials['username']}}"
+        password: "{{ credentials['password']}}"
+        template_dir: "/etc/ntc/ansible/library/ntc-ansible/ntc-templates/templates/"
+      register: "operational_structured_results"
+      with_items: "{{ operational_structure_checks }}"
+
+    - name: "CONVERT RESULTS TO DICT"
+      set_fact:
+        operational_structured: "{{ operational_structured | combine({ operational_structure_checks[item.0]['name'] : item[1]['response']  }) }}"
+      with_indexed_items: "{{ operational_structured_results['results'] }}"
+
+    - name: "ENSURE ROUTE COUNT IS ABOVE 3"
+      assert:
+        that:
+          - "operational_structured['show_route'] | length | int > 3"
