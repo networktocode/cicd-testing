@@ -1,0 +1,13 @@
+lxml
+urllib3
+terminal
+pyopenssl
+pyasn1
+ndg-httpsclient
+mock
+ncclient
+jtextfsm
+pyntc
+pynxos
+napalm
+yamllint

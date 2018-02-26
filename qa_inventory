@@ -1,0 +1,6 @@
+csr1 ansible_host=10.0.0.61
+csr2 ansible_host=10.0.0.62
+csr3 ansible_host=10.0.0.63
+
+[all:vars]
+env=qa

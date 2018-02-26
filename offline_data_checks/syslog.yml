@@ -1,0 +1,12 @@
+---
+
+- name: "ENSURE THERE ARE 2 SYSLOG SERVERS"
+  assert:
+    that:
+      - "syslog_servers | length == 2"
+
+- name: "ENSURE SERVER IS PROPER IP"
+  assert:
+    that:
+      - "item | ipaddr"
+  with_items: "{{ syslog_servers }}"

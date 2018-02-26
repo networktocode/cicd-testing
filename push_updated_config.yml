@@ -1,0 +1,14 @@
+---
+
+- name: "PUSH CONFIG TO DEVICE"
+  hosts: "all"
+  connection: "local"
+  gather_facts: "no"
+
+  tasks:
+
+
+    - name: "PUSH CONFIG FROM GENERATED TO DEVICE"
+      ios_config:
+        src: "./configs/final/{{ inventory_hostname }}.cfg"
+      check_mode: "{{ deploy_config | default(true) }}"

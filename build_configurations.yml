@@ -1,0 +1,34 @@
+---
+
+- name: "RUN DATA VALIDATION CHECKS"
+  hosts: "all"
+  connection: "local"
+  gather_facts: "no"
+
+  tasks:
+
+    - name: "SET FACT FOR NET_CONFIGS_DIR AND CRYTPO"
+      set_fact:
+        net_configs_dir: "{{ playbook_dir }}/configs"
+
+    - name: "ENSURE DIRS ARE CREATED PER DEVICE"
+      file:
+        path: "{{ net_configs_dir }}/partial/{{ inventory_hostname }}/"
+        state: "directory"
+
+    - name: "ENSURE FINAL CONFIG DIR created"
+      file:
+        path: "{{ net_configs_dir }}/final/"
+        state: "directory"
+
+    - name: "BUILD BASE CONFIGS"
+      template:
+        src: "{{ item }}"
+        dest: "{{ net_configs_dir }}/partial/{{ inventory_hostname }}/{{ item | basename | replace('.j2','' ) }}.cfg"
+      with_fileglob:
+        - "{{ playbook_dir }}/templates/build_configs/*"
+
+    - name: "ASSEMBLE PARTIAL CONFIGS"
+      assemble:
+        src: "{{ net_configs_dir }}/partial/{{ inventory_hostname }}/"
+        dest: "{{ net_configs_dir }}/final/{{ inventory_hostname}}.cfg"
