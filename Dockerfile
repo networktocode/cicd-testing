@@ -8,7 +8,7 @@ RUN yum --enablerepo=extras install -y epel-release && \
     mkdir -p /etc/ntc/ansible/filter_plugins/ &&\
     mkdir -p /etc/ntc/ansible/library/ && \
     mkdir -p /etc/ntc/playbook/ && \
-    pip install ansible
+    pip install ansible==2.4.2
 
 COPY files/requirements /etc/ansible/requirements
 COPY files/ansible.cfg /etc/ansible/ansible.cfg
