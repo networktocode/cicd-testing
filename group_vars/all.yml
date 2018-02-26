@@ -1,7 +1,7 @@
 ---
 
-ansible_ssh_pass: "ntc"
-ansible_user: "ntc123"
+ansible_ssh_pass: "ntc123"
+ansible_user: "ntc"
 
 credentials:
   username: "{{ ansible_user }}"
