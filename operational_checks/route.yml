@@ -1,0 +1,6 @@
+---
+
+- name: "ENSURE ROUTE COUNT IS ABOVE 3"
+  assert:
+    that:
+      - "operational_structured['show_route'] | length | int > 3"

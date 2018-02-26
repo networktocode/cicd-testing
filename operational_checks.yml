@@ -1,7 +1,7 @@
 ---
 
 - name: "OPERATIONAL COMPLIANCE CHECKS"
-  hosts: "routers"
+  hosts: "all"
   connection: "local"
   gather_facts: "no"
 
@@ -23,7 +23,21 @@
         operational_structured: "{{ operational_structured | combine({ operational_structure_checks[item.0]['name'] : item[1]['response']  }) }}"
       with_indexed_items: "{{ operational_structured_results['results'] }}"
 
+    - debug: var=operational_structured['show_interface']
+
+    - name: "INCLUDE ANY CHECK IN FOLDER"
+      include_tasks: "{{ outer_item }}"
+      loop_control:
+        loop_var: "outer_item"
+      with_fileglob:
+        - "{{ playbook_dir }}/operational_checks/*"
+
     - name: "ENSURE ROUTE COUNT IS ABOVE 3"
       assert:
         that:
           - "operational_structured['show_route'] | length | int > 3"
+
+    - name: "ENSURE OSPF NEIGHBORS IS PER REQUIREMENT"
+      assert:
+        that:
+          - "operational_structured['show_ospf'] | length | int == expected_ospf_neighbor_count"

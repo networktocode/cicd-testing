@@ -1,0 +1,6 @@
+---
+
+- name: "ENSURE OSPF NEIGHBORS IS PER REQUIREMENT"
+  assert:
+    that:
+      - "operational_structured['show_ospf'] | length | int == expected_ospf_neighbor_count"

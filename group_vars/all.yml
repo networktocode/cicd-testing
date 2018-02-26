@@ -20,10 +20,10 @@ ntp_servers:
 
 operational_structure_checks:
   - name: "show_interface"
-    command: "show interface brief"
-  - name: "show_lldp"
-    command: "show lldp neighbors"
+    command: "show ip interface brief"
   - name: "show_ospf"
     command: "show ip ospf neighbor"
   - name: "show_route"
     command: "show ip route"
+
+operational_structured: {}

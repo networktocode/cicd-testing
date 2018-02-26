@@ -11,3 +11,7 @@
     - name: "PUSH CONFIG FROM GENERATED TO DEVICE"
       ios_config:
         src: "./configs/final/{{ inventory_hostname }}.cfg"
+
+    - name: "PAUSE TO ENSURE ANY OPERATAIONAL CHANGES HAVE TO TAKE"
+      pause:
+        minutes: 1
