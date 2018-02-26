@@ -50,7 +50,7 @@ pipeline {
           } finally {
               sh "echo 'shell scripts to deploy to server...'"
               githubNotify status: "SUCCESS", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cisco-cicd"
-           }
+          }
         }
       }
     }
