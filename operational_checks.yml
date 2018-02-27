@@ -31,13 +31,3 @@
         loop_var: "outer_item"
       with_fileglob:
         - "{{ playbook_dir }}/operational_checks/*"
-
-    - name: "ENSURE ROUTE COUNT IS ABOVE 3"
-      assert:
-        that:
-          - "operational_structured['show_route'] | length | int > 3"
-
-    - name: "ENSURE OSPF NEIGHBORS IS PER REQUIREMENT"
-      assert:
-        that:
-          - "operational_structured['show_ospf'] | length | int == expected_ospf_neighbor_count"
