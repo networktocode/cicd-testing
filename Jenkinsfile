@@ -30,7 +30,7 @@ pipeline {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               //sh 'ansible-playbook -i prod_inventory push_updated_config.yml'
-              sh "echo 'push_config 1'"
+              sh "echo 'push_confi'"
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
