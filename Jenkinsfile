@@ -14,8 +14,8 @@ pipeline {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               sh 'printenv'
               sh 'yamllint -d yamllint.yml .'
-              sh 'ansible-playbook -i prod_inventory offline_data_checks.yml'
-              sh 'ansible-playbook -i prod_inventory build_configurations.yml'
+              //sh 'ansible-playbook -i prod_inventory offline_data_checks.yml'
+              //sh 'ansible-playbook -i prod_inventory build_configurations.yml'
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
@@ -29,7 +29,8 @@ pipeline {
         script {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
-              sh 'ansible-playbook -i prod_inventory push_updated_config.yml'
+              //sh 'ansible-playbook -i prod_inventory push_updated_config.yml'
+              sh "echo 'push_config'"
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
@@ -43,7 +44,8 @@ pipeline {
         script {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
-              sh 'ansible-playbook -i prod_inventory operational_checks.yml'
+              //sh 'ansible-playbook -i prod_inventory operational_checks.yml'
+              sh "echo 'post_deploy_tests'"
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
