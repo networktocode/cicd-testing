@@ -13,7 +13,7 @@ pipeline {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               sh 'printenv'
-              sh 'echo after'
+              sh 'echo here'
               sh 'yamllint -d yamllint.yml .'
               sh 'ansible-playbook -i prod_inventory offline_data_checks.yml'
               sh 'ansible-playbook -i prod_inventory build_configurations.yml'
