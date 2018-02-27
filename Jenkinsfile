@@ -53,13 +53,13 @@ pipeline {
                 if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
                 ansible-playbook -i ${inventory} operational_checks.yml
               '''
+              githubNotify status: "SUCCESS", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
               throw err
           } finally {
               sh "echo 'shell scripts to deploy to server...'"
-              githubNotify status: "SUCCESS", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
           }
         }
       }
