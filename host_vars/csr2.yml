@@ -15,4 +15,4 @@ ethernet_interfaces:
     ip: "10.255.2.1"
     mask: "255.255.255.0"
 
-expected_ospf_neighbor_count: 1
+expected_ospf_neighbor_count: 2
