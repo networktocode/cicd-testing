@@ -16,9 +16,8 @@ pipeline {
                 if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
                 printenv
                 yamllint -d yamllint.yml .
-                echo "${inventory}"
                 ansible-playbook -i prod_inventory offline_data_checks.yml
-                ansible-playbook -i prod_inventory build_configurations.yml
+                ansible-playbook -i ${inventory} build_configurations.yml
               '''
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
@@ -33,7 +32,10 @@ pipeline {
         script {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
-              sh 'ansible-playbook -i prod_inventory push_updated_config.yml'
+              sh '''
+                if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
+                ansible-playbook -i prod_inventory push_updated_config.yml
+              '''
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
@@ -47,7 +49,10 @@ pipeline {
         script {
           try {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
-              sh 'ansible-playbook -i prod_inventory operational_checks.yml'
+              sh '''
+                if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
+                ansible-playbook -i prod_inventory operational_checks.yml
+              '''
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               currentBuild.result = 'FAILED'
