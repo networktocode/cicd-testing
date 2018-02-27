@@ -6,7 +6,7 @@
   gather_facts: "no"
 
   tasks:
-    - name: "INCLUDE ANY CHECK IN FOLDER"
+    - name: "INCLUDE ANY OFFLINE CHECK IN FOLDER"
       include_tasks: "{{ outer_item }}"
       loop_control:
         loop_var: "outer_item"
