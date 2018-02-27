@@ -10,9 +10,5 @@ ethernet_interfaces:
     description: "INTERCONNECT"
     ip: "10.255.1.2"
     mask: "255.255.255.0"
-  - name: "GigabitEthernet3"
-    description: "INTERCONNECT"
-    ip: "10.255.2.2"
-    mask: "255.255.255.0"
 
 expected_ospf_neighbor_count: 2

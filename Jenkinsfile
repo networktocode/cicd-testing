@@ -34,7 +34,7 @@ pipeline {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               sh '''
                 if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
-                ansible-playbook -i prod_inventory push_updated_config.yml
+                ansible-playbook -i ${inventory} push_updated_config.yml
               '''
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
@@ -51,7 +51,7 @@ pipeline {
               githubNotify status: "PENDING", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
               sh '''
                 if [ "${GITHUB_PR_STATE}" == "CLOSED" ]; then export inventory="prod_inventory" ; else export inventory="qa_inventory" ; fi
-                ansible-playbook -i prod_inventory operational_checks.yml
+                ansible-playbook -i ${inventory} operational_checks.yml
               '''
           } catch(err) {
               githubNotify status: "FAILURE", sha: "${GITHUB_PR_HEAD_SHA}", description: "Build started...", credentialsId: "ntcteam", account: "networktocode", repo: "cicd-testing"
